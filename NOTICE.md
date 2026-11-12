@@ -25,6 +25,8 @@ Suggested attribution:
 
 The USDA soil description terminology used in the catalogue follows Schoeneberger, P.J., Wysocki, D.A., Benham, E.C. and Soil Survey Staff (2012), *Field Book for Describing and Sampling Soils*, version 3.0, USDA-NRCS, and Soil Survey Staff, *Keys to Soil Taxonomy*, USDA-NRCS. These are U.S. Government works.
 
+The FAO/WRB catalogue follows FAO (2006), *Guidelines for Soil Description*, 4th edition, Rome, and IUSS Working Group WRB (2022), *World Reference Base for Soil Resources*, 4th edition, International Union of Soil Sciences (IUSS), Vienna. Only codes, class names and class limits are used; no text or figures from these publications are reproduced, and the publications themselves are not distributed with this tool.
+
 ## 3. Logos and emblems: not licensed
 
 The FAO name and emblem, the SoilFER logo, the "From the People of Japan" logo and the seal of the United States Department of State (in `www/logos/`) are **not covered by either licence above**. They remain the property of their respective owners and may not be used without their permission, including in modified versions or forks of this tool. Use of the FAO name and emblem is governed by FAO's rules (contact copyright@fao.org).

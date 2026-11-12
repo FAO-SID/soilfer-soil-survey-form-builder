@@ -1,6 +1,6 @@
 # SoilFER Soil Survey Form Builder
 
-**Live tool:** https://soilfer-collect.yigini.net/ . https://fao-sid.github.io/soilfer-soil-survey-form-builder/
+**Live tool:** https://fao-sid.github.io/soilfer-soil-survey-form-builder/
 
 A single-page web app that builds KoboToolbox / ODK forms (XLSForm `.xlsx`) for soil survey fieldwork. It runs entirely in the browser, with no server and no build step.
 
@@ -10,11 +10,11 @@ A single-page web app that builds KoboToolbox / ODK forms (XLSForm `.xlsx`) for 
 - **Standards:**
   - **USDA:** the field catalogue follows the *Field Book for Describing and Sampling Soils* v3.0 (Schoeneberger et al., 2012) and the *Keys to Soil Taxonomy*.
   - **SoilFER-collect v1.0 (FAO, 2024):** the official SoilFER form, embedded in full. It covers consent, R0/P1–P3 topsoil and subsoil sampling, soil and site description, the land cover repeat and additional field tests, with Spanish and English labels.
-  - FAO Guidelines and WRB are planned next.
+  - **FAO Guidelines (2006) + WRB 2022:** site and horizon description with the codes and class limits of the *Guidelines for Soil Description* (4th edition), and classification with the *World Reference Base for Soil Resources* (4th edition, 2022).
 - **Customise:** tick fields on or off, rename questions, switch fields between required and optional, add your own fields or sections. Conditions are tracked, so removing a question also removes the questions that depend on it.
 - **Import:** upload an existing XLSForm to merge its questions in, or a protocol document (`.docx`, `.txt`, `.md`) for the AI assistant to read.
 - **AI assistant (optional):** describe the changes you want in plain words. The assistant proposes edits, and you review them before they are applied. Users bring their own API key (Anthropic, OpenAI or Google Gemini). Keys stay in the browser.
-- **Six languages:** the interface and the USDA field catalogue (questions, hints, error messages and every option list) are available in English, French, Portuguese, Russian, Chinese and Spanish. See *Languages* below.
+- **Six languages:** the interface and the USDA and FAO/WRB field catalogues (questions, hints, error messages and every option list) are available in English, French, Portuguese, Russian, Chinese and Spanish. See *Languages* below.
 - **Checks + export:** the same rules KoBo applies on upload (unique names, existing option lists, valid references), then a one-click `.xlsx` download.
 
 ### SoilFER-collect option
@@ -24,11 +24,20 @@ A single-page web app that builds KoboToolbox / ODK forms (XLSForm `.xlsx`) for 
 - **Media files:** the form uses `team.csv`, `provinces.csv`, `all_tsus.csv`, `hue.csv` and 37 pictures. The builder lists them all; upload them under the KoBo project's *Settings → Media* before deploying.
 - **Fidelity check:** an unmodified SoilFER export was converted with `pyxform` and compared with the original XLSForm. It has the same 204 data paths in the same order, and the same 148 rules (relevance, constraints, calculations). It has the same 514 body elements and 919 of 922 translated labels match. The 3 that differ had no English text in the original: KoBo would show “-” there, and the builder shows the Spanish text instead.
 
+### FAO Guidelines + WRB option
+- Same survey types as USDA: profile + sampling, profile, auger and topsoil.
+- **Site:** major landform, position in the landscape, slope form, slope gradient with the FAO slope class calculated (Table 7), land use, vegetation, lithology group, rock outcrops, coarse surface fragments and erosion (category, area, degree, activity).
+- **Horizons:** boundary distinctness and topography, moisture status, Munsell colour, mottles, field texture class (FAO texture triangle), rock fragments, structure (type, grade, size), consistence, stickiness, plasticity, pores, coatings, cementation, mineral concentrations, carbonates (HCl reaction and forms), gypsum, salts, roots and biological activity, plus field pH, EC and horizon sampling.
+- **WRB 2022 classification:** diagnostic horizons, properties and materials; the 32 Reference Soil Groups; principal and supplementary qualifiers limited to those allowed for the group picked (a `choice_filter` built from the WRB key); and the **full soil name assembled automatically** following the WRB rules (principal qualifiers before the group, highest-ranked closest to it; supplementary qualifiers in brackets), e.g. *Stagnic Luvisol (Clayic, Humic)*.
+- Option codes are the FAO codes, shown in brackets in every language. WRB names keep their official form in all languages.
+- The WRB qualifier lists reuse qualifier names across groups, so the export sets `allow_choice_duplicates = yes` in the settings sheet, which KoboToolbox supports.
+
 ### Languages
 - **Interface:** pick English, Français, Português, Русский, 中文 or Español in the top-right corner. The page opens in the browser's language when it is one of these.
 - **Exported forms:** tick any combination of the six languages under *Form languages*. The XLSForm gets one `label::Language (code)` column per language (for example `label::French (fr)`), and KoBo Collect and the web form show a language switcher.
 - **Form opens in** sets KoBo's `default_language`. **Edit labels in** sets which language you type in when renaming questions.
 - Field Book codes stay in brackets in every language (for example *Franco arcilloso (CL)*, *黏壤土（CL）*), so records remain comparable across countries.
+- WRB names (Reference Soil Groups, qualifiers, diagnostics) stay in their official form in all languages.
 - Soil Taxonomy names (orders, suborders, diagnostic horizons, regimes) keep their English form in Russian. In Chinese they get the common Chinese term with the English name in brackets.
 - The SoilFER-collect form ships in Spanish and English. You can add other languages; the checks count the labels still to translate, and the AI assistant can fill them in.
 - Translations were prepared for this tool. Please have them reviewed by native-speaking soil scientists before large field campaigns, especially Russian and Chinese.
@@ -57,7 +66,7 @@ The site is served by GitHub Pages from the `main` branch, root folder (**Settin
 
 ## Validation
 
-Exports from every survey type were converted with `pyxform` 4.5 and passed ODK Validate. That is the same conversion KoboToolbox runs on upload. The `examples/` folder holds validated exports (`soil_profile_sampling.xlsx`, `topsoil_sampling.xlsx`, `soilFER_001.xlsx`).
+Exports from every survey type were converted with `pyxform` 4.5 and passed ODK Validate. That is the same conversion KoboToolbox runs on upload. The `examples/` folder holds validated exports (`soil_profile_sampling.xlsx`, `topsoil_sampling.xlsx`, `soilFER_001.xlsx`, `fao_wrb_soil_profile_sampling.xlsx`).
 
 ## Acknowledgement
 
