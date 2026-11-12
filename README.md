@@ -1,6 +1,7 @@
 # SoilFER Soil Survey Form Builder
 
-**Live tool:** https://fao-sid.github.io/soilfer-soil-survey-form-builder/
+**Live tool:** (https://fao-sid.github.io/soilfer-soil-survey-form-builder/)
+**Temporary site:** https://soilfer-collect.yigini.net/
 
 A single-page web app that builds KoboToolbox / ODK forms (XLSForm `.xlsx`) for soil survey fieldwork. It runs entirely in the browser, with no server and no build step.
 
